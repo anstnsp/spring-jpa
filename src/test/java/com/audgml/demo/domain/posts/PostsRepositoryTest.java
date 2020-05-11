@@ -27,7 +27,7 @@ public class PostsRepositoryTest {
     //given 
     String title = "테스트게시글";
     String content = "테스트본문"; 
-
+    //.save()는 upsert 역할을 함. 
     postsRepository.save(Posts.builder()
                     .title(title)
                     .content(content)

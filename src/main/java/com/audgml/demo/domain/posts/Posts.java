@@ -60,7 +60,7 @@ public class Posts { //실제 db와 매칭될 클래스를 Entity클래스라고
   니다. 이렇게 되면 해당 클래스의 인스턴스 값들이 언제 어디서 변해야 
   하는지 묘드상으로 명확하게 구분할 수가 없어， 차후 기능 변경 시 정말 
   복잡해집니다. 
-  그래서 Entity 클래스에서는 절대 Setter 메소드를 만들지 않습니다 대신， 해 
+  그래서 Entity 클래스에서는 절대 Setter 메소드를 만들지 않습니다 대신 해 
   당 필드의 값 변경이 필요하면 명확히 그 목적과 의도를 나타낼 수 있는 
   메소드를 추가해야만 합나다. 
   ex) public class Order{ 
@@ -69,5 +69,8 @@ public class Posts { //실제 db와 매칭될 클래스를 Entity클래스라고
         }
       public void 주문서비스의-취소이벤트 (){ order.cancelIrder(); } 
  */
-
+    public void update(String title, String content) {
+      this.title = title; 
+      this.content = content; 
+    }
 }
