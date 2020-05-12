@@ -1,9 +1,13 @@
 package com.audgml.demo.service.posts;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.transaction.Transactional;
 
 import com.audgml.demo.domain.posts.Posts;
 import com.audgml.demo.domain.posts.PostsRepository;
+import com.audgml.demo.web.dto.PostsListReponseDto;
 import com.audgml.demo.web.dto.PostsResponseDto;
 import com.audgml.demo.web.dto.PostsSaveRequestDto;
 
@@ -51,4 +55,19 @@ public class PostsService {
 
                   return new PostsResponseDto(entity);
   }
+
+  @Transactional 
+  public List<PostsListReponseDto> findAllDesc() {
+    return postsRepository.findAllDesc().stream()
+                          .map(PostsListReponseDto::new)
+                          .collect(Collectors.toList());
+  }
+
+  @Transactional
+  public void delete(Long id) {
+    Posts posts = postsRepository.findById(id)
+                      .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id="+ id));
+    postsRepository.delete(posts);
+  }
+  
 }

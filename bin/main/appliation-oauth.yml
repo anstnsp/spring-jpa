@@ -1,0 +1,15 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 256564752132-tv3uub2djd7v86f0q0uvaob5e1v4ub5h.apps.googleusercontent.com
+            client-secret: SMAs7WNbSyPyXDEMjbUkeyCy
+            scope: profile, email #default 가 openid, profile, email임
+            #강제로 profile,email을 등록한 이유는 openid라는 scope가 있으면 Open Id Provider로 인식하기 때문 
+            #이렇게 되면 OpenId Provider인 서비스(구글)과 그렇지 않은 서비스(네이버,카카오)로 나눠서 
+            #각각 OAuth2Servervi를 만들어야함.  
+            #하나의 OAuth2Service로 사용하기 위해 일부러 openid scope를 빼고 등록. 
+
+            

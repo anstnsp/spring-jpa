@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.audgml.demo.domain.BaseTimeEntity;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +28,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Posts { //실제 db와 매칭될 클래스를 Entity클래스라고 함. 
+public class Posts extends BaseTimeEntity{ //실제 db와 매칭될 클래스를 Entity클래스라고 함. 
 
   //웬만하면 Entity의 PK는 Long 타입의 AutoJncrement를 추천합니디
   @Id //해당 테이블의 pk필드를 나타냄. 
