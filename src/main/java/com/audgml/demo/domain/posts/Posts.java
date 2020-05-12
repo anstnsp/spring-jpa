@@ -12,8 +12,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 /**
- * @Entity는 JPA의 어노테이션이며， @Getter와 @NoArgsConstructor는 
-  롬복의 어노테이션입니다. 
+ * @Entity는 JPA의 어노테이션이며， 
+ * @Getter와 @NoArgsConstructor는 롬복의 어노테이션입니다. 
   롬복은 코드를 단순화시켜 주지만 필수 어노테이션은 아닙니다. 그러다 보 
   니 주요 어노테이션인 @Entity를 클래스에 가깝게 두고， 롬복 어노테이 
   션을 그 위로 두었습니다. 이렇게 하면 이후에 묘툴린 등의 새 언어 전환으로 
@@ -30,7 +30,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Posts extends BaseTimeEntity{ //실제 db와 매칭될 클래스를 Entity클래스라고 함. 
 
-  //웬만하면 Entity의 PK는 Long 타입의 AutoJncrement를 추천합니디
+  //웬만하면 Entity의 PK는 Long 타입의 AutoIncrement를 추천합니디
   @Id //해당 테이블의 pk필드를 나타냄. 
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id; 
@@ -60,7 +60,7 @@ public class Posts extends BaseTimeEntity{ //실제 db와 매칭될 클래스를
 /**
  * 자바빈 규약을 생각하면서 getter/setter를 무작정 생성하는 경우가 있습 
   니다. 이렇게 되면 해당 클래스의 인스턴스 값들이 언제 어디서 변해야 
-  하는지 묘드상으로 명확하게 구분할 수가 없어， 차후 기능 변경 시 정말 
+  하는지 코드상으로 명확하게 구분할 수가 없어, 차후 기능 변경 시 정말 
   복잡해집니다. 
   그래서 Entity 클래스에서는 절대 Setter 메소드를 만들지 않습니다 대신 해 
   당 필드의 값 변경이 필요하면 명확히 그 목적과 의도를 나타낼 수 있는 
