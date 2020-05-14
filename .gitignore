@@ -33,3 +33,5 @@ out/
 
 ### oauth ###
 application-oauth.yml 
+
+frontend/node_modules
