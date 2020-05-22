@@ -41,7 +41,6 @@ dependencies {
 	}
 	testImplementation 'org.springframework.batch:spring-batch-test'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-	implementation "com.moowork.gradle:gradle-node-plugin") 
 }
 
 test {
@@ -49,18 +48,43 @@ test {
 }
 
 def frontendDir = "$projectDir/frontend"
+
 //node 버전 및 npm, node 설치파일 저장 디렉토리 명시 
 // node {
+// 	println "#### node install ####"
 // 	version = "12.15.0"
 // 	download=true 
 // 	workDir = file("${project.buildDir}?nodejs")
 // 	npmWorkDir = file("${project.buildDir}/npm")
 // }
 
-task appNpmInstall(type: NpmTask) {
+// npm install 과정 
+// task appNpmInstall(type: NpmTask) {
+// 	println "#### npm install ####"
+// 	workingDir = file("${frontendDir}")
+// 	args = ["install"]
+// 	//args = ["run", "prod"]
+// }
+
+// npm 명령어 (build 여기서는 run prod를 빌드로 package.json에 내가해놈 ) 
+task npmBuild(type: NpmTask, dependsOn: compileJava) {
+	println "#### npm build ####"
 	workingDir = file("${frontendDir}")
 	args = ["run", "prod"]
 }
+
+//빌드된 결과 resources 폴더로 이동 
+task copyWebApp(type: Copy, dependsOn: npmBuild) {
+	println "#### copy resources ####"
+	println "${frontendDir}/dist"
+	println "build/resources/main/static"
+	from "${frontendDir}/dist"
+	into "build/resources/main/static/dist"
+}
+
+// npmBuild.dependsOn appNpmInstall
+// copyWebApp.dependsOn npmBuild
+compileJava
 
 
 
