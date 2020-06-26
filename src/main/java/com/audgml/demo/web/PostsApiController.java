@@ -1,9 +1,13 @@
 package com.audgml.demo.web;
 
+import java.util.List;
+
 import com.audgml.demo.service.posts.PostsService;
+import com.audgml.demo.web.dto.PostsListReponseDto;
 import com.audgml.demo.web.dto.PostsResponseDto;
 import com.audgml.demo.web.dto.PostsSaveRequestDto;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin("*")
 public class PostsApiController {
 
   private final PostsService postsService; 
@@ -37,6 +42,10 @@ public class PostsApiController {
     return postsService.findById(id);
   }
   
+  @GetMapping("/api/v1/posts")
+  public List<PostsListReponseDto> findAll() {
+    return postsService.findAllDesc();
+  }
   @DeleteMapping("/api/v1/posts/{id}")
   public Long delete(@PathVariable Long id) {
     postsService.delete(id);

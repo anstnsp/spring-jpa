@@ -2,10 +2,8 @@ plugins {
 	id 'org.springframework.boot' version '2.2.7.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
-	id "com.moowork.node" version "1.3.1"
 }
 
-apply plugin: "com.moowork.node"
 apply plugin: "application"
 mainClassName = "com.audgml.demo.DemoApplication"
 
@@ -40,7 +38,7 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	testImplementation 'org.springframework.batch:spring-batch-test'
-	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	// implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 }
 
 test {
@@ -67,24 +65,27 @@ def frontendDir = "$projectDir/frontend"
 // }
 
 // npm 명령어 (build 여기서는 run prod를 빌드로 package.json에 내가해놈 ) 
-task npmBuild(type: NpmTask, dependsOn: compileJava) {
-	println "#### npm build ####"
-	workingDir = file("${frontendDir}")
-	args = ["run", "prod"]
-}
+// task npmBuild(type: NpmTask, dependsOn: compileJava) {
+// 	println "#### npm build ####"
+// 	workingDir = file("${frontendDir}")
+// 	args = ["run", "prod"]
+// }
 
 //빌드된 결과 resources 폴더로 이동 
-task copyWebApp(type: Copy, dependsOn: npmBuild) {
-	println "#### copy resources ####"
-	println "${frontendDir}/dist"
-	println "build/resources/main/static"
-	from "${frontendDir}/dist"
-	into "build/resources/main/static/dist"
-}
+// task copyWebApp(type: Copy, dependsOn: npmBuild) {
+// 	println "#### copy resources ####"
+// 	println "${frontendDir}/dist"
+// 	println "build/resources/main/static"
+// 	from "${frontendDir}/dist"
+// 	into "build/resources/main/static/dist"
+// }
 
 // npmBuild.dependsOn appNpmInstall
 // copyWebApp.dependsOn npmBuild
+
 compileJava
+
+
 
 
 

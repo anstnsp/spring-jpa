@@ -1,22 +1,22 @@
-package com.audgml.demo.config;
+// package com.audgml.demo.config;
 
-import java.util.List;
+// import java.util.List;
 
-import com.audgml.demo.config.auth.LoginUserArgumentResolver;
+// import com.audgml.demo.config.auth.LoginUserArgumentResolver;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+// import org.springframework.context.annotation.Configuration;
+// import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+// import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import lombok.RequiredArgsConstructor;
+// import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-@Configuration
-public class WebConfig implements WebMvcConfigurer {
-  private final LoginUserArgumentResolver loginUserArgumentResolver; 
+// @RequiredArgsConstructor
+// @Configuration
+// public class WebConfig implements WebMvcConfigurer {
+//   private final LoginUserArgumentResolver loginUserArgumentResolver; 
 
-  @Override
-  public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-    argumentResolvers.add(loginUserArgumentResolver); 
-  }
-}
+//   @Override
+//   public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+//     argumentResolvers.add(loginUserArgumentResolver); 
+//   }
+// }

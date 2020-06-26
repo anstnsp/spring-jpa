@@ -12,10 +12,9 @@ class App extends Component {
     return(
       <Router>
         <div>
-        <Route exact path="/webtoon" component={WebtoonHome} />
+          <Route exact path="/webtoon" component={WebtoonHome} />
           <Route path="/viewer" component={Viewer}/>
           <Route exact path="/" component={Main}/>
-         
         </div>
 
       </Router>

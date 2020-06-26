@@ -11,6 +11,12 @@ import AddButton from "../components/AddButton";
 import Button from "@material-ui/core/Button"; 
 
 class Main extends Component {
+  state = {
+
+  };
+  good = () => {
+    alert("ㅎㅇㅇ"); 
+  }
   render() {
     return (
       <>
@@ -18,7 +24,7 @@ class Main extends Component {
         <Gnb />
         <Container> 
         <div>
-        <Button variant="outlined" color="primary">게시글저장</Button>   
+        <Button variant="outlined" color="primary" onClick={good}>게시글저장</Button>   
         </div>
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sed molestiae possimus quidem laudantium temporibus modi commodi asperiores! Ullam fuga impedit ipsum assumenda, tempora quaerat aliquid. Deserunt quisquam praesentium hic incidunt?<br></br>
          메인임<br></br>
