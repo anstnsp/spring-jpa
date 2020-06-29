@@ -56,9 +56,10 @@ public class PostsService {
                   return new PostsResponseDto(entity);
   }
 
-  @Transactional 
+  @Transactional
   public List<PostsListReponseDto> findAllDesc() {
     return postsRepository.findAllDesc().stream()
+    //.map(posts -> new PostListResponseDto(posts)) == .map(PostsListResponseDto::new)
                           .map(PostsListReponseDto::new)
                           .collect(Collectors.toList());
   }
