@@ -3,12 +3,26 @@ spring:
 # 부트에서 properties의 이름을 application-xxx.yml로 하면 
 # xxx라는 이름의 profile이 생성되어 이를 통해 관리가능. 
 # 즉, profile=xxx라는 식으로 호출하면 해당 yml의 설정들을 가져올수 있음. 
-  profiles: default
-    # include:
-    # - oauth
+  profiles: 
+    include:
+    - oauth
   jpa: 
     show-sql: true
   h2:
     console:
       enabled: true
 
+
+app:
+  auth:
+    tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
+    tokenExpirationMsec: 864000000
+  oauth2:
+    # After successfully authenticating with the OAuth2 Provider,
+    # we'll be generating an auth token for the user and sending the token to the
+    # redirectUri mentioned by the client in the /oauth2/authorize request.
+    # We're not using cookies because they won't work well in mobile clients.
+    authorizedRedirectUris:
+      - http://localhost:2222/oauth2/redirect
+      - myandroidapp://oauth2/redirect
+      - myiosapp://oauth2/redirect
