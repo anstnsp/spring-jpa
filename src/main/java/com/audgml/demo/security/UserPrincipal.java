@@ -35,6 +35,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     }
 
     public static UserPrincipal create(User user) {
+        System.out.println("@@@:" + user.toString());
         List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
 
         return new UserPrincipal(user.getId(), user.getEmail(), user.getPassword(), authorities);

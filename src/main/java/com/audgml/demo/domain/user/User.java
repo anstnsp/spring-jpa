@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 
 import com.audgml.demo.config.auth.dto.AuthProvider;
 import com.audgml.demo.domain.BaseTimeEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -33,7 +34,7 @@ public class User extends BaseTimeEntity {
   @Column(nullable = false)
   private String email;
 
-  @Column(nullable = false)
+  @JsonIgnore
   private String password;
 
   @Column
@@ -50,7 +51,7 @@ public class User extends BaseTimeEntity {
    * 기본적으로는 int로 된 숫자 저장. - 숫자로 저장되면 디비로 확인할 때 그 값이 무슨의미인지 잘 알수가 없어서 문자열로 저장함.
    */
   @Enumerated(EnumType.STRING)
-  @Column(nullable = false)
+  // @Column(nullable = false)
   private Role role;
 
   @Builder

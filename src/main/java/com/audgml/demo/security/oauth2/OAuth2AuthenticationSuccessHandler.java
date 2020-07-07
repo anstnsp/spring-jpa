@@ -1,5 +1,7 @@
 package com.audgml.demo.security.oauth2;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -24,6 +26,8 @@ import static com.audgml.demo.security.oauth2.HttpCookieOAuth2AuthorizationReque
 @Component
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
+    private static final Logger logger = LoggerFactory.getLogger(OAuth2AuthenticationSuccessHandler.class);
+
     private TokenProvider tokenProvider;
     private AppProperties appProperties;
     private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
@@ -40,8 +44,9 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
         String targetUrl = determineTargetUrl(request, response, authentication);
-
+        System.out.println("targetUrl:" + targetUrl);
         if (response.isCommitted()) {
+
             logger.debug("Response has already been committed. Unable to redirect to " + targetUrl);
             return;
         }
@@ -74,7 +79,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
     private boolean isAuthorizedRedirectUri(String uri) {
         URI clientRedirectUri = URI.create(uri);
-
+        logger.info("clientRedirectUri: {}", clientRedirectUri);
         return appProperties.getOauth2().getAuthorizedRedirectUris().stream().anyMatch(authorizedRedirectUri -> {
             // Only validate host and port. Let the clients use different paths if they want
             // to

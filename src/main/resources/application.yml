@@ -13,6 +13,7 @@ spring:
       enabled: true
 
 
+#이 아래는 유저가 성공적으로 로그인 하면 jwt만들어서 주는데 사용 . 
 app:
   auth:
     tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
@@ -23,6 +24,6 @@ app:
     # redirectUri mentioned by the client in the /oauth2/authorize request.
     # We're not using cookies because they won't work well in mobile clients.
     authorizedRedirectUris:
-      - http://localhost:2222/oauth2/redirect
+      - http://localhost:2222/oauth2
       - myandroidapp://oauth2/redirect
       - myiosapp://oauth2/redirect
