@@ -42,7 +42,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
   @Override
   public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
     logger.info("#loadUser start# ");
-    System.out.println(
+    logger.info(
         "#####oAuth2UserRequest:" + oAuth2UserRequest.toString() + "#" + oAuth2UserRequest.getAccessToken().toString());
     OAuth2User oAuth2User = super.loadUser(oAuth2UserRequest);
 
@@ -94,7 +94,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     user.setProviderId(oAuth2UserInfo.getId());
     user.setName(oAuth2UserInfo.getName());
     user.setEmail(oAuth2UserInfo.getEmail());
-    logger.info("user.getRole : {}", user.getRole());
+    user.setRole(user.getRole().USER);
+    logger.info("user.getRole 111: {}", user.getRole().USER);
+    // logger.info("user.getRole 222: {}", user.getRole().getKey());
     logger.info("user : {}", user.toString());
     // user.setImageUrl(oAuth2UserInfo.getImageUrl());
     return userRepository.save(user);

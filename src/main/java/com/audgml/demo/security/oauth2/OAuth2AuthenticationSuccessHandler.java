@@ -44,7 +44,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
         String targetUrl = determineTargetUrl(request, response, authentication);
-        System.out.println("targetUrl:" + targetUrl);
+        logger.info("onAuthenticationSuccess() targetUrl:" + targetUrl);
         if (response.isCommitted()) {
 
             logger.debug("Response has already been committed. Unable to redirect to " + targetUrl);
@@ -79,7 +79,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
     private boolean isAuthorizedRedirectUri(String uri) {
         URI clientRedirectUri = URI.create(uri);
-        logger.info("clientRedirectUri: {}", clientRedirectUri);
+        logger.info("clientRedirectUri: {}", clientRedirectUri); // http://localhost:2222/oauth2
         return appProperties.getOauth2().getAuthorizedRedirectUris().stream().anyMatch(authorizedRedirectUri -> {
             // Only validate host and port. Let the clients use different paths if they want
             // to

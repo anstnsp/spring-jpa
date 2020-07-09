@@ -1,5 +1,7 @@
 package com.audgml.demo.security;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +21,7 @@ import com.audgml.demo.domain.user.User;
 @Getter
 @Setter
 public class UserPrincipal implements OAuth2User, UserDetails {
+    private static final Logger logger = LoggerFactory.getLogger(UserPrincipal.class);
 
     private static final long serialVersionUID = 1L;
     private Long id;
@@ -35,9 +38,9 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     }
 
     public static UserPrincipal create(User user) {
-        System.out.println("@@@:" + user.toString());
+        logger.info("UserPrincipal.create() , {}", user.getRole());
         List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
-
+        logger.info("authorities : {}", authorities.toString());
         return new UserPrincipal(user.getId(), user.getEmail(), user.getPassword(), authorities);
     }
 
