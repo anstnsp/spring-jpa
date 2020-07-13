@@ -19,10 +19,10 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
   private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-  private UserRepository userRepository;
+  private final UserRepository userRepository;
 
   @GetMapping("/user/me")
-  @PreAuthorize("hasRole('ROLE_USER')") // @PreAuthorize 먼지 찾아보기
+  @PreAuthorize("hasRole('USER')") // @PreAuthorize 먼지 찾아보기
   public User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
 
     logger.info("### getCurrentUser ###");

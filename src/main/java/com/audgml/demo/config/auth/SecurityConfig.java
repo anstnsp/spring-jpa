@@ -42,6 +42,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     return new TokenAuthenticationFilter();
   }
 
+  /**
+   * Spring OAuth2 에서는 기본적으로 권한부여요청을 저장하기 위해
+   * HttpSessionOAuth2AuthorizationRequestRepository 사용한다. 그러나 우리의 서비스는
+   * stateless하기때문에 그걸 세션에 저장하지 않는다. 대신에 우리는 base64로 인코딩된 쿠키를 저장할거다.
+   * 
+   * @return
+   */
   /*
    * By default, Spring OAuth2 uses
    * HttpSessionOAuth2AuthorizationRequestRepository to save the authorization

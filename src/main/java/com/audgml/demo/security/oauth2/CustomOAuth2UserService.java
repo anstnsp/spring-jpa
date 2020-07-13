@@ -30,7 +30,7 @@ import lombok.RequiredArgsConstructor;
 // In this method, we first fetch the user’s details from the OAuth2 provider. 
 // If a user with the same email already exists in our database then we update his details, 
 // otherwise, we register a new user.
-//이 메소드는 공급자로부터 접근토큰 얻은 후에 실행된다. 
+//이 메소드는 공급자(google,kakao)로부터 접근토큰 얻은 후에 실행된다. 
 //처음 유저디테일 가져오고, 만약 디비에 같은 유저이메일이 존재하면 업데이트하고 아니면 새로 유저만듬. 
 @RequiredArgsConstructor
 @Service
@@ -49,6 +49,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     try {
       return processOAuth2User(oAuth2UserRequest, oAuth2User);
     } catch (AuthenticationException ex) {
+      logger.error("AuthenticationException : {}", ex);
       throw ex;
     } catch (Exception ex) {
       // Throwing an instance of AuthenticationException will trigger the
@@ -61,7 +62,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     logger.info("#processOAuth2User start# ");
     OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory
         .getOAuth2UserInfo(oAuth2UserRequest.getClientRegistration().getRegistrationId(), oAuth2User.getAttributes());
-    System.out.println("oAuth2UserInfo.getEmail():" + oAuth2UserInfo.getEmail());
+    logger.info("oAuth2UserInfo.getEmail():" + oAuth2UserInfo.getEmail());
 
     if (StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
       throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");

@@ -7,6 +7,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import com.audgml.demo.config.auth.dto.AuthProvider;
@@ -22,6 +25,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Setter
+@Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = "email") })
 public class User extends BaseTimeEntity {
 
   @Id
@@ -29,8 +33,9 @@ public class User extends BaseTimeEntity {
   private Long id;
 
   @Column(nullable = false)
-  private String name;
+  private String name; // 유저이름
 
+  @Email
   @Column(nullable = false)
   private String email;
 
@@ -39,6 +44,9 @@ public class User extends BaseTimeEntity {
 
   @Column
   private String picture;
+
+  @Column(nullable = false)
+  private Boolean emailVerified = false;
 
   @NotNull
   @Enumerated(EnumType.STRING)
