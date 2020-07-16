@@ -84,11 +84,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers("/", "/error", "/favicon.ico", "/**/*.png", "/**/*.gif", "/**/*.svg", "/**/*.jpg", "/**/*.html",
             "/**/*.css", "/**/*.js")
-        .permitAll().antMatchers("/auth/**", "/oauth2/**", "/api/v1/posts/**", "/h2-console/**").permitAll()
-        .anyRequest().authenticated().and().oauth2Login().authorizationEndpoint().baseUri("/oauth2/authorize")
-        .authorizationRequestRepository(cookieAuthorizationRequestRepository()).and().redirectionEndpoint()
-        .baseUri("/oauth2/callback/*").and().userInfoEndpoint().userService(customOAuth2UserService).and()
-        .successHandler(oAuth2AuthenticationSuccessHandler).failureHandler(oAuth2AuthenticationFailureHandler);
+        .permitAll()
+        .antMatchers("/auth/**", "/oauth2/**", "/api/v1/posts/**", "/h2-console/**", "/user/signup", "/user/signin")
+        .permitAll().anyRequest().authenticated().and().oauth2Login().authorizationEndpoint()
+        .baseUri("/oauth2/authorize").authorizationRequestRepository(cookieAuthorizationRequestRepository()).and()
+        .redirectionEndpoint().baseUri("/oauth2/callback/*").and().userInfoEndpoint()
+        .userService(customOAuth2UserService).and().successHandler(oAuth2AuthenticationSuccessHandler)
+        .failureHandler(oAuth2AuthenticationFailureHandler);
 
     // Add our custom Token based authentication filter
     http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

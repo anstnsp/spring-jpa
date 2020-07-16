@@ -7,7 +7,9 @@ import com.audgml.demo.domain.user.User;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Getter
 public class SignupRequestDto {
   @NotBlank

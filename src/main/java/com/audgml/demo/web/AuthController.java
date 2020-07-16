@@ -5,6 +5,7 @@ import java.net.URI;
 import javax.validation.Valid;
 
 import com.audgml.demo.config.auth.dto.AuthProvider;
+import com.audgml.demo.domain.user.Role;
 import com.audgml.demo.domain.user.User;
 import com.audgml.demo.domain.user.UserRepository;
 import com.audgml.demo.exception.BadRequestException;
@@ -37,7 +38,7 @@ public class AuthController {
         private final PasswordEncoder passwordEncoder;
         private final TokenProvider tokenProvider;
 
-        @PostMapping("/login")
+        @PostMapping("/signin")
         public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDto loginRequestDto) {
 
                 Authentication authentication = authenticationManager
@@ -53,7 +54,7 @@ public class AuthController {
         @PostMapping("/signup")
         public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequestDto signUpRequestDto) {
                 if (userRepository.existsByEmail(signUpRequestDto.getEmail())) {
-                        throw new BadRequestException("Email address already in use.");
+                        throw new BadRequestException("해당 이메일이 이미 존재합니다.");
                 }
 
                 // Creating user's account
@@ -62,14 +63,14 @@ public class AuthController {
                 user.setEmail(signUpRequestDto.getEmail());
                 user.setPassword(signUpRequestDto.getPassword());
                 user.setProvider(AuthProvider.local);
-
+                user.setRole(Role.USER);
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
 
                 User result = userRepository.save(user);
 
-                URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/me")
-                                .buildAndExpand(result.getId()).toUri();
+                // URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/me")
+                //                 .buildAndExpand(result.getId()).toUri();
 
-                return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully@"));
+                return ResponseEntity.ok().body(new ApiResponse(true, "회원가입이 성공적으로 되었습니다."));
         }
 }
