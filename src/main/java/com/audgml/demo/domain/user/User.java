@@ -36,7 +36,7 @@ public class User extends BaseTimeEntity {
   private String name; // 유저이름
 
   @Email
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   private String email;
 
   @JsonIgnore

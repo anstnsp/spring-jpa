@@ -27,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
+//securedEnabled는 @Secured 사용하게함, prePostEnabled는 @preAuthorize @PostAuthorize 사용하게함. 
 @EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

@@ -41,6 +41,12 @@ public class AuthController {
         @PostMapping("/signin")
         public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDto loginRequestDto) {
 
+                User loginUser = userRepository.findByEmail(loginRequestDto.getEmail())
+                .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 E-MAIL 입니다."));
+
+                if (!passwordEncoder.matches(loginRequestDto.getPassword(), loginUser.getPassword())) {
+                throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+                }
                 Authentication authentication = authenticationManager
                                 .authenticate(new UsernamePasswordAuthenticationToken(loginRequestDto.getEmail(),
                                                 loginRequestDto.getPassword()));
