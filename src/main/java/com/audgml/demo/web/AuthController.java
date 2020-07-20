@@ -33,44 +33,52 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RequiredArgsConstructor
 public class AuthController {
 
-        private final AuthenticationManager authenticationManager;
-        private final UserRepository userRepository;
-        private final PasswordEncoder passwordEncoder;
-        private final TokenProvider tokenProvider;
+  private final AuthenticationManager authenticationManager;
+  private final UserRepository userRepository;
+  private final PasswordEncoder passwordEncoder;
+  private final TokenProvider tokenProvider;
 
-        @PostMapping("/signin")
-        public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDto loginRequestDto) {
+  @PostMapping("/signin")
+  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDto loginRequestDto) {
 
-                Authentication authentication = authenticationManager
-                                .authenticate(new UsernamePasswordAuthenticationToken(loginRequestDto.getEmail(),
-                                                loginRequestDto.getPassword()));
+    
+    User loginUser = userRepository.findByEmail(loginRequestDto.getEmail())
+    .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 E-MAIL 입니다."));
 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+    if (!passwordEncoder.matches(loginRequestDto.getPassword(), loginUser.getPassword())) {
+      throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+    }
 
-                String token = tokenProvider.createToken(authentication);
-                return ResponseEntity.ok(new AuthResponse(token));
-        }
+    Authentication authentication = authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(loginRequestDto.getEmail(),
+                                    loginRequestDto.getPassword()));
 
-        @PostMapping("/signup")
-        public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequestDto signUpRequestDto) {
-                if (userRepository.existsByEmail(signUpRequestDto.getEmail())) {
-                        throw new BadRequestException("해당 이메일이 이미 존재합니다.");
-                }
+    SecurityContextHolder.getContext().setAuthentication(authentication);
 
-                // Creating user's account
-                User user = new User();
-                user.setName(signUpRequestDto.getName());
-                user.setEmail(signUpRequestDto.getEmail());
-                user.setPassword(signUpRequestDto.getPassword());
-                user.setProvider(AuthProvider.local);
-                user.setRole(Role.USER);
-                user.setPassword(passwordEncoder.encode(user.getPassword()));
+    String token = tokenProvider.createToken(authentication);
+    return ResponseEntity.ok(new AuthResponse(token));
+  }
 
-                User result = userRepository.save(user);
+  @PostMapping("/signup")
+  public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequestDto signUpRequestDto) {
+    if (userRepository.existsByEmail(signUpRequestDto.getEmail())) {
+            throw new BadRequestException("해당 이메일이 이미 존재합니다.");
+    }
 
-                // URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/me")
-                //                 .buildAndExpand(result.getId()).toUri();
+    // Creating user's account
+    User user = new User();
+    user.setName(signUpRequestDto.getName());
+    user.setEmail(signUpRequestDto.getEmail());
+    user.setPassword(signUpRequestDto.getPassword());
+    user.setProvider(AuthProvider.local);
+    user.setRole(Role.USER);
+    user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-                return ResponseEntity.ok().body(new ApiResponse(true, "회원가입이 성공적으로 되었습니다."));
-        }
+    User result = userRepository.save(user);
+
+    // URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/me")
+    //                 .buildAndExpand(result.getId()).toUri();
+
+    return ResponseEntity.ok().body(new ApiResponse(true, "회원가입이 성공적으로 되었습니다."));
+  }
 }
