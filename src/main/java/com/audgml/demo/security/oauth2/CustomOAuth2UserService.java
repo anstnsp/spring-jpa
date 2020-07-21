@@ -7,6 +7,7 @@ import com.audgml.demo.domain.user.User;
 import com.audgml.demo.domain.user.UserRepository;
 import com.audgml.demo.exception.OAuth2AuthenticationProcessingException;
 import com.audgml.demo.security.UserPrincipal;
+import com.audgml.demo.security.oauth2.user.KakaoOauth2UserInfo;
 import com.audgml.demo.security.oauth2.user.OAuth2UserInfo;
 import com.audgml.demo.security.oauth2.user.OAuth2UserInfoFactory;
 
@@ -42,8 +43,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
   @Override
   public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
     logger.info("#loadUser start# ");
+    
     logger.info(
-        "#####oAuth2UserRequest:" + oAuth2UserRequest.toString() + "#" + oAuth2UserRequest.getAccessToken().toString());
+        "#####oAuth2UserRequest:" + oAuth2UserRequest.toString() + "#" + oAuth2UserRequest.getAccessToken().toString()
+        + oAuth2UserRequest.getClientRegistration() + oAuth2UserRequest.getAdditionalParameters());
     OAuth2User oAuth2User = super.loadUser(oAuth2UserRequest);
 
     try {
@@ -63,7 +66,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory
         .getOAuth2UserInfo(oAuth2UserRequest.getClientRegistration().getRegistrationId(), oAuth2User.getAttributes());
     logger.info("oAuth2UserInfo.getEmail():" + oAuth2UserInfo.getEmail());
-
+    logger.info("oAuth2UserInfo.getId():"+oAuth2UserInfo.getId());
+    logger.info("oAuth2UserInfo.getId():"+oAuth2UserInfo.getName());
+   
     if (StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
       throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
     }
