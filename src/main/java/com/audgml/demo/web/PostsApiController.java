@@ -2,6 +2,7 @@ package com.audgml.demo.web;
 
 import java.util.List;
 
+import com.audgml.demo.exception.BadRequestException;
 import com.audgml.demo.service.posts.PostsService;
 import com.audgml.demo.web.dto.PostsListReponseDto;
 import com.audgml.demo.web.dto.PostsResponseDto;
@@ -29,6 +30,11 @@ public class PostsApiController {
   public Long save(@RequestBody PostsSaveRequestDto requestDto) {
     System.out.println("#### postsave ####");
     System.out.println("dto:"+requestDto);
+    System.out.println(requestDto.getAuthor());
+    if(requestDto.getAuthor() == "") {
+      throw new BadRequestException("작성자가 없음.(로그인 되어있지 않음.");
+    }
+
     return postsService.save(requestDto); 
   }
 

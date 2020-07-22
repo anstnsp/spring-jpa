@@ -33,7 +33,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RequiredArgsConstructor
 public class AuthController {
 
-
   private final AuthenticationManager authenticationManager;
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
@@ -79,8 +78,7 @@ public class AuthController {
 
     // URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/me")
     //                 .buildAndExpand(result.getId()).toUri();
-
+    
     return ResponseEntity.ok().body(new ApiResponse(true, "회원가입이 성공적으로 되었습니다."));
   }
-
 }
