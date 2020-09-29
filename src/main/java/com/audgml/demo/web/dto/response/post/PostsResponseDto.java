@@ -1,4 +1,4 @@
-package com.audgml.demo.web.dto;
+package com.audgml.demo.web.dto.response.post;
 
 import com.audgml.demo.domain.posts.Posts;
 

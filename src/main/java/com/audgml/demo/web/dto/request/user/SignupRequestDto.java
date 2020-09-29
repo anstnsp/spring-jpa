@@ -1,4 +1,4 @@
-package com.audgml.demo.web.dto.user;
+package com.audgml.demo.web.dto.request.user;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

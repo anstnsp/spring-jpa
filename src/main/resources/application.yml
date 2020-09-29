@@ -9,6 +9,8 @@ spring:
       - oauth
   jpa: 
     show-sql: true
+    mapping-resources:
+    - META-INF/ormPost.xml
   h2:
     console:
       enabled: true

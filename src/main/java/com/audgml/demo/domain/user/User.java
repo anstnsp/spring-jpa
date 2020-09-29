@@ -66,7 +66,6 @@ public class User extends BaseTimeEntity {
   public User(String name, String email, String password, String picture, AuthProvider provider, String providerId,
       Role role) {
     this.name = name;
-
     this.email = email;
     this.password = password;
     this.picture = picture;
@@ -78,7 +77,6 @@ public class User extends BaseTimeEntity {
   public User update(String name, String picture) {
     this.name = name;
     this.picture = picture;
-
     return this;
   }
 

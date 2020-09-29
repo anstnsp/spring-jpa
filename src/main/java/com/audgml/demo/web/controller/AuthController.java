@@ -1,6 +1,4 @@
-package com.audgml.demo.web;
-
-import java.net.URI;
+package com.audgml.demo.web.controller;
 
 import javax.validation.Valid;
 
@@ -10,10 +8,10 @@ import com.audgml.demo.domain.user.User;
 import com.audgml.demo.domain.user.UserRepository;
 import com.audgml.demo.exception.BadRequestException;
 import com.audgml.demo.security.TokenProvider;
-import com.audgml.demo.web.dto.ApiResponse;
-import com.audgml.demo.web.dto.AuthResponse;
-import com.audgml.demo.web.dto.user.LoginRequestDto;
-import com.audgml.demo.web.dto.user.SignupRequestDto;
+import com.audgml.demo.web.dto.request.user.LoginRequestDto;
+import com.audgml.demo.web.dto.request.user.SignupRequestDto;
+import com.audgml.demo.web.dto.response.ApiResponse;
+import com.audgml.demo.web.dto.response.AuthResponse;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +24,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/auth")
@@ -74,10 +71,7 @@ public class AuthController {
     user.setRole(Role.USER);
     user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-    User result = userRepository.save(user);
-
-    // URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/me")
-    //                 .buildAndExpand(result.getId()).toUri();
+    userRepository.save(user);
     
     return ResponseEntity.ok().body(new ApiResponse(true, "회원가입이 성공적으로 되었습니다."));
   }

@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.audgml.demo.domain.posts.Posts;
 import com.audgml.demo.domain.posts.PostsRepository;
-import com.audgml.demo.web.dto.PostsSaveRequestDto;
+import com.audgml.demo.web.dto.request.posts.PostsSaveRequestDto;
 
 import org.junit.After;
 import org.junit.Test;

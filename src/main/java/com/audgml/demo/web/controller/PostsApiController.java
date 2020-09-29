@@ -1,12 +1,13 @@
-package com.audgml.demo.web;
+package com.audgml.demo.web.controller;
 
 import java.util.List;
 
 import com.audgml.demo.exception.BadRequestException;
 import com.audgml.demo.service.posts.PostsService;
-import com.audgml.demo.web.dto.PostsListReponseDto;
-import com.audgml.demo.web.dto.PostsResponseDto;
-import com.audgml.demo.web.dto.PostsSaveRequestDto;
+
+import com.audgml.demo.web.dto.request.posts.PostsSaveRequestDto;
+import com.audgml.demo.web.dto.response.posts.PostsListReponseDto;
+import com.audgml.demo.web.dto.response.posts.PostsResponseDto;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;

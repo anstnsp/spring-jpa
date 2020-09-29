@@ -22,7 +22,6 @@ public class CustomUserDetailsService implements UserDetailsService {
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     User user = userRepository.findByEmail(email)
         .orElseThrow(() -> new UsernameNotFoundException("User not found with email : " + email));
-
     return UserPrincipal.create(user);
   }
 
@@ -30,8 +29,6 @@ public class CustomUserDetailsService implements UserDetailsService {
   public UserDetails loadUserById(Long id) {
 
     User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
-    System.out.println("!@#!@#!@#:" + user.getEmail());
-
     return UserPrincipal.create(user);
   }
 
@@ -39,7 +36,6 @@ public class CustomUserDetailsService implements UserDetailsService {
   public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
     User user = userRepository.findByEmail(email)
         .orElseThrow(() -> new UsernameNotFoundException("User not found with email : " + email));
-
     return UserPrincipal.create(user);
   } 
 }

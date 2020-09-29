@@ -1,4 +1,5 @@
-package com.audgml.demo.web.dto;
+package com.audgml.demo.web.dto.response;
+
 
 import lombok.Getter;
 import lombok.Setter;

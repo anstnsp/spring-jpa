@@ -13,24 +13,14 @@ import com.audgml.demo.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-/**
- * @Entity는 JPA의 어노테이션이며， 
- * @Getter와 @NoArgsConstructor는 롬복의 어노테이션입니다. 
-  롬복은 코드를 단순화시켜 주지만 필수 어노테이션은 아닙니다. 그러다 보 
-  니 주요 어노테이션인 @Entity를 클래스에 가깝게 두고， 롬복 어노테이 
-  션을 그 위로 두었습니다. 이렇게 하면 이후에 묘툴린 등의 새 언어 전환으로 
-  롬복이 더이상 필요 없을 경우 쉽게 삭제할 수 있습니다 
- */
-/**
- * ) @Entity 
- * • 테이블과 링크될 클래스임을 나타냄니다 
- * • 기본값으로 클래스의 카멜케이스 이름을 언더스코어 네이밍니으로 테이블 이름을 매 칭합니다 
-• ex) SalesManager.java --7 sales_manager table
- */
+
 @Getter
 @NoArgsConstructor
 @Entity
-public class Posts extends BaseTimeEntity{ //실제 db와 매칭될 클래스를 Entity클래스라고 함. 
+
+
+
+public class Posts extends BaseTimeEntity { //실제 db와 매칭될 클래스를 Entity클래스라고 함. 
 
   //웬만하면 Entity의 PK는 Long 타입의 AutoIncrement를 추천합니디
   @Id //해당 테이블의 pk필드를 나타냄. 

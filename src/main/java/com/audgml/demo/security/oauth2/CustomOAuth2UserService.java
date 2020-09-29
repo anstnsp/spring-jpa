@@ -7,7 +7,7 @@ import com.audgml.demo.domain.user.User;
 import com.audgml.demo.domain.user.UserRepository;
 import com.audgml.demo.exception.OAuth2AuthenticationProcessingException;
 import com.audgml.demo.security.UserPrincipal;
-import com.audgml.demo.security.oauth2.user.KakaoOauth2UserInfo;
+
 import com.audgml.demo.security.oauth2.user.OAuth2UserInfo;
 import com.audgml.demo.security.oauth2.user.OAuth2UserInfoFactory;
 
@@ -65,10 +65,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     logger.info("#processOAuth2User start# ");
     OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory
         .getOAuth2UserInfo(oAuth2UserRequest.getClientRegistration().getRegistrationId(), oAuth2User.getAttributes());
-    logger.info("oAuth2UserInfo.getEmail():" + oAuth2UserInfo.getEmail());
-    logger.info("oAuth2UserInfo.getId():"+oAuth2UserInfo.getId());
-    logger.info("oAuth2UserInfo.getId():"+oAuth2UserInfo.getName());
-   
+
     if (StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
       throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
     }
@@ -83,13 +80,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         throw new OAuth2AuthenticationProcessingException("Looks like you're signed up with " + user.getProvider()
             + " account. Please use your " + user.getProvider() + " account to login.");
       }
-      logger.info("##유저업데이트하기 전##");
+
       user = updateExistingUser(user, oAuth2UserInfo);
     } else {
-      logger.info("##유저 생성하기전##");
       user = registerNewUser(oAuth2UserRequest, oAuth2UserInfo);
     }
-    logger.info("##유저생성바로전##");
     return UserPrincipal.create(user, oAuth2User.getAttributes());
   }
 
